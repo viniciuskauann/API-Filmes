@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { AppTheme, ThemeType } from "../theme/theme";
+import { AppTheme, themes, ThemeType } from "../theme/theme";
 
 
 interface ThemeContextData {
@@ -33,3 +33,5 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 export function useTheme() {
   return useContext(ThemeContext);
 }
+
+export { ThemeContext };

@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { TabRoutes } from "./TabRoutes";
-import { DetailsScreen } from "@/src/screens/Details/DetailsScreen";
+import { TabRoutes } from "../navigation/TabRoutes";
+import { DetailsScreen } from "../screens/Detail/DetailScreen";
 
 const Stack = createStackNavigator();
 

@@ -1,6 +1,6 @@
-import { lightTheme } from "./light";
-import { darkTheme } from "./dark";
-import { fonts } from "./fonts";
+import { lightTheme } from "../theme/light";
+import { darkTheme } from "../theme/dark";
+import { fonts } from "../theme/fonts";
 
 export type ThemeType = "light" | "dark";
 

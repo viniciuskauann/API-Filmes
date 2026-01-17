@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { clearSession, getSession, saveSession } from "@/src/utils/storage";
+import { clearSession, getSession, saveSession } from "../utils/storage";
 
 interface AuthContextData {
   isAuthenticated: boolean;
@@ -47,3 +47,5 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth() {
   return useContext(AuthContext);
 }
+
+export { AuthContext };
