@@ -1,47 +1,46 @@
-import { ScrollView, Text, View, FlatList } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { MovieCard } from "../../components/MovieCard";
+import { ScrollView } from "react-native";
+import { homeStyles } from "./homeStyles";
 import { useFetch } from "../../hooks/useFetch";
 import { getNowPlaying, getPopular, getTopRated, getUpcoming } from "../../services/tmdb.service";
+import { EmptyState } from "../../components/EmptyState";
+import { Loading } from "../../components/Loading";
+import { MovieCarousel } from "../../components/MovieCarousel";
+import { useTheme } from "../../context/ThemeContext";
+
 
 export function HomeScreen() {
-  const navigation = useNavigation<any>();
+  const { theme } = useTheme();
+  const styles = homeStyles(theme);
 
   const nowPlaying = useFetch(getNowPlaying);
   const popular = useFetch(getPopular);
   const topRated = useFetch(getTopRated);
   const upcoming = useFetch(getUpcoming);
 
-  function renderSection(title: string, data: any[] | null) {
-    if (!data) return null;
+  if (
+    nowPlaying.loading ||
+    popular.loading ||
+    topRated.loading ||
+    upcoming.loading
+  ) {
+    return <Loading />;
+  }
 
-    return (
-      <View style={{ marginBottom: 24 }}>
-        <Text style={{ fontSize: 18, fontWeight: "700", marginBottom: 12 }}>
-          {title}
-        </Text>
-        <FlatList
-          data={data}
-          horizontal
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <MovieCard
-              movie={item}
-              onPress={() => navigation.navigate("Details", { movie: item })}
-            />
-          )}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
-    );
+  if (
+    !nowPlaying.data?.length &&
+    !popular.data?.length &&
+    !topRated.data?.length &&
+    !upcoming.data?.length
+  ) {
+    return <EmptyState message="Nenhum filme disponível no momento." />;
   }
 
   return (
-    <ScrollView style={{ padding: 16 }}>
-      {renderSection("Now Playing", nowPlaying.data)}
-      {renderSection("Popular", popular.data)}
-      {renderSection("Top Rated", topRated.data)}
-      {renderSection("Upcoming", upcoming.data)}
+    <ScrollView style={styles.container}>
+      <MovieCarousel title="Now Playing" movies={nowPlaying.data ?? []} />
+      <MovieCarousel title="Popular" movies={popular.data ?? []} />
+      <MovieCarousel title="Top Rated" movies={topRated.data ?? []} />
+      <MovieCarousel title="Upcoming" movies={upcoming.data ?? []} />
     </ScrollView>
   );
 }

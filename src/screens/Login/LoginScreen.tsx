@@ -1,7 +1,14 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
+import { loginStyles } from "./loginStyles";
 
 export function LoginScreen() {
+
+  const { theme } = useTheme();
+  const styles = loginStyles(theme);
+
+
   const { login } = useAuth();
 
   return (

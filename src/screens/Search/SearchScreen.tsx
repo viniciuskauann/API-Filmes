@@ -1,13 +1,21 @@
 import { View, TextInput, FlatList } from "react-native";
 import { useEffect, useState } from "react";
-
 import { MovieCard } from "../../components/MovieCard";
 import { useNavigation } from "@react-navigation/native";
 import { Movie } from "../../types/movie";
 import { searchMovies } from "../../services/tmdb.service";
+import { useTheme } from "../../context/ThemeContext";
+import { searchStyles } from "./searchStyles";
 
 
 export function SearchScreen() {
+
+const { theme } = useTheme();
+  const styles = searchStyles(theme);
+
+
+
+
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState<Movie[]>([]);
   const navigation = useNavigation<any>();

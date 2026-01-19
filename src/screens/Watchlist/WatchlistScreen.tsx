@@ -2,9 +2,19 @@ import { View, FlatList, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MovieCard } from "../../components/MovieCard";
 import { useFavorites } from "../../hooks/useFavorites";
+import { watchlistStyles } from "./watchlistStyles";
+import { useTheme } from "../../context/ThemeContext";
 
 export function WatchlistScreen() {
-  const { favorites } = useFavorites();
+
+const { theme } = useTheme();
+  const styles = watchlistStyles(theme);
+
+
+
+
+
+  const { favorites } = useFavorites(); 
   const navigation = useNavigation<any>();
 
   if (favorites.length === 0) {
