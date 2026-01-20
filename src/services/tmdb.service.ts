@@ -13,6 +13,19 @@ function mapMovie(movie: any): Movie {
   };
 }
 
+
+/* Cast */
+export async function getMovieCredits(movieId: number) {
+  const response = await api.get(`/movie/${movieId}/credits`);
+  return response.data.cast;
+}
+
+/* Reviews */
+export async function getMovieReviews(movieId: number) {
+  const response = await api.get(`/movie/${movieId}/reviews`);
+  return response.data.results;
+}
+
 export async function getNowPlaying(): Promise<Movie[]> {
   try {
     const { data } = await api.get("/movie/now_playing");

@@ -51,8 +51,8 @@ export function DetailsScreen() {
 
         {/* Conteúdo */}
         {tab === "about" && <AboutTab overview={movie.overview} />}
-        {tab === "cast" && <CastTab />}
-        {tab === "reviews" && <ReviewsTab />}
+        {tab === "cast" && <CastTab movieId={movie.id} />}
+        {tab === "reviews" && <ReviewsTab movieId={movie.id} />}
 
         {/* Favorito */}
         <TouchableOpacity
