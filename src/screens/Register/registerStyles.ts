@@ -1,14 +1,13 @@
 import { StyleSheet } from "react-native";
 import { AppTheme } from "../../theme/theme";
 
-export const loginStyles = (theme: AppTheme) =>
+export const registerStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
-      justifyContent: "center",
-      alignItems: "center",
       paddingHorizontal: 24,
+      justifyContent: "center",
     },
 
     title: {
@@ -23,7 +22,16 @@ export const loginStyles = (theme: AppTheme) =>
       fontFamily: theme.fonts.regular,
       color: theme.colors.textSecondary,
       marginBottom: 32,
-      textAlign: "center",
+    },
+
+    input: {
+      height: 52,
+      borderRadius: 12,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: 16,
+      marginBottom: 16,
+      fontFamily: theme.fonts.regular,
+      color: theme.colors.text,
     },
 
     button: {
@@ -32,7 +40,7 @@ export const loginStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.primary,
       justifyContent: "center",
       alignItems: "center",
-      paddingHorizontal: 32,
+      marginTop: 8,
       marginBottom: 24,
     },
 
@@ -43,6 +51,7 @@ export const loginStyles = (theme: AppTheme) =>
     },
 
     link: {
+      textAlign: "center",
       color: theme.colors.textSecondary,
       fontFamily: theme.fonts.regular,
     },

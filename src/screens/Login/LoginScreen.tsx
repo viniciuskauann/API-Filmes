@@ -1,44 +1,40 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../context/ThemeContext";
 import { loginStyles } from "./loginStyles";
+import { useNavigation } from "@react-navigation/native";
 
 export function LoginScreen() {
-
   const { theme } = useTheme();
   const styles = loginStyles(theme);
 
-
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
+  const navigation = useNavigation<any>();
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 24,
-      }}
-    >
-      <Text style={{ fontSize: 24, fontWeight: "700", marginBottom: 16 }}>
-        TMDB Explorer
-      </Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>TMDB Explorer</Text>
 
-      <Text style={{ opacity: 0.6, marginBottom: 32 }}>
+      <Text style={styles.subtitle}>
         Login simulado para acessar o app
       </Text>
 
       <TouchableOpacity
         onPress={login}
-        style={{
-          backgroundColor: "#2563EB",
-          paddingVertical: 14,
-          paddingHorizontal: 32,
-          borderRadius: 8,
-        }}
+        style={styles.button}
+        disabled={loading}
       >
-        <Text style={{ color: "#FFF", fontWeight: "700" }}>
-          Entrar
+        <Text style={styles.buttonText}>
+          {loading ? "Entrando..." : "Entrar"}
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Register")}
+      >
+        <Text style={styles.link}>
+          Não tem conta?{" "}
+          <Text style={styles.linkBold}>Cadastre-se</Text>
         </Text>
       </TouchableOpacity>
     </View>
