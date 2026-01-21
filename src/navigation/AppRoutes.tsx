@@ -6,7 +6,7 @@ const Stack = createStackNavigator();
 
 export function AppRoutes() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator id="app-stack">
       <Stack.Screen
         name="Tabs"
         component={TabRoutes}

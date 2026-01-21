@@ -1,12 +1,11 @@
 import { ScrollView } from "react-native";
 import { homeStyles } from "./homeStyles";
 import { useFetch } from "../../hooks/useFetch";
-import { getNowPlaying, getPopular, getTopRated, getUpcoming } from "../../services/tmdb.service";
+import {getNowPlaying, getPopular, getTopRated, getUpcoming} from "../../services/tmdb.service";
 import { EmptyState } from "../../components/EmptyState";
-import { Loading } from "../../components/Loading";
 import { MovieCarousel } from "../../components/MovieCarousel";
 import { useTheme } from "../../context/ThemeContext";
-
+import { Loading } from "@/src/components/Loading";
 
 export function HomeScreen() {
   const { theme } = useTheme();
@@ -38,8 +37,15 @@ export function HomeScreen() {
   return (
     <ScrollView style={styles.container}>
       <MovieCarousel title="Now Playing" movies={nowPlaying.data ?? []} />
-      <MovieCarousel title="Popular" movies={popular.data ?? []} />
-      <MovieCarousel title="Top Rated" movies={topRated.data ?? []} />
+
+      <MovieCarousel title="Popular" movies={popular.data ?? []} showRanking />
+
+      <MovieCarousel
+        title="Top Rated"
+        movies={topRated.data ?? []}
+        showRanking
+      />
+
       <MovieCarousel title="Upcoming" movies={upcoming.data ?? []} />
     </ScrollView>
   );

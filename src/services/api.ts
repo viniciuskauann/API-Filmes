@@ -6,6 +6,11 @@ const api = axios.create({
   params: {
     api_key: process.env.EXPO_PUBLIC_TMDB_API_KEY,
     language: "pt-BR",
+    
+  },
+  headers: {
+    Accept:"application/json",
+    Authorization: `Bearer ${process.env.EXPO_PUBLIC_TMDB_API_KEY}`,
   },
 });
 

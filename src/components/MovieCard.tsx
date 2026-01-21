@@ -17,6 +17,7 @@ export function MovieCard({ movie, onPress }: Props) {
       style={{
         width: 140,
         marginRight: 12,
+         zIndex: 1,
       }}
       activeOpacity={0.8}
     >
