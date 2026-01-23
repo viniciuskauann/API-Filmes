@@ -6,15 +6,56 @@ export const homeStyles = (theme: AppTheme) =>
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
-      padding: 16,
+      paddingHorizontal: 16,
     },
-    section: {
-      marginBottom: 24,
+
+    header: {
+      marginTop: 12,
+      marginBottom: 16,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
     },
-    sectionTitle: {
-      fontSize: 18,
+
+    title: {
+      fontSize: 22,
       fontFamily: theme.fonts.bold,
       color: theme.colors.text,
-      marginBottom: 12,
+      maxWidth: "80%",
+    },
+
+    searchContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      backgroundColor: theme.colors.card,
+      borderRadius: 16,
+      paddingHorizontal: 16,
+      height: 48,
+      marginBottom: 24,
+    },
+
+    searchInput: {
+      flex: 1,
+      color: theme.colors.text,
+      fontSize: 16,
+    },
+
+    tabs: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginVertical: 20,
+    },
+
+    tab: {
+      fontSize: 14,
+      color: theme.colors.placeholder,
+      fontFamily: theme.fonts.medium,
+    },
+
+    activeTab: {
+      color: theme.colors.primary,
+      borderBottomWidth: 2,
+      borderBottomColor: theme.colors.primary,
+      paddingBottom: 6,
     },
   });

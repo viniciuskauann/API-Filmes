@@ -1,7 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { RatingBadge } from "./RatingBadge";
+import { useTheme } from "@/src/context/ThemeContext";
 import { Movie } from "../types/movie";
-import { useTheme } from "../context/ThemeContext";
 
 interface Props {
   movie: Movie;
@@ -14,29 +14,31 @@ export function MovieCard({ movie, onPress }: Props) {
   return (
     <TouchableOpacity
       onPress={onPress}
+      activeOpacity={0.8}
       style={{
         width: 140,
         marginRight: 12,
-         zIndex: 1,
       }}
-      activeOpacity={0.8}
     >
-      <View>
+      {/* Wrapper RELATIVO */}
+      <View style={{ position: "relative" }}>
         <Image
           source={{ uri: movie.posterPath }}
           style={{
             width: "100%",
             height: 200,
-            borderRadius: 8,
+            borderRadius: 12,
           }}
         />
 
-        {/* Rating */}
+        {/* ⭐ RATING — NA FRENTE */}
         <View
           style={{
             position: "absolute",
             top: 8,
             right: 8,
+            zIndex: 10,       // iOS
+            elevation: 10,    // Android
           }}
         >
           <RatingBadge rating={movie.rating} />
