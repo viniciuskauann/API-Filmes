@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ScrollView,
   View,
@@ -5,6 +6,8 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
 import { homeStyles } from "./homeStyles";
 import { useFetch } from "../../hooks/useFetch";
 import {
@@ -17,37 +20,14 @@ import { EmptyState } from "../../components/EmptyState";
 import { MovieCarousel } from "../../components/MovieCarousel";
 import { useTheme } from "../../context/ThemeContext";
 import { Loading } from "../../components/Loading";
-import { Ionicons } from "@expo/vector-icons";
-import { lightTheme } from "@/src/theme/light";
-import { fonts } from "@/src/theme/fonts";
-import { darkTheme } from "@/src/theme/dark";
 
-
-
-
-export const themes = {
-  light: {
-    ...lightTheme,
-    fonts,
-    colors: {
-      ...lightTheme.colors,
-      placeholder: "#888888",
-    },
-  },
-  dark: {
-    ...darkTheme,
-    fonts,
-    colors: {
-      ...darkTheme.colors,
-      placeholder: "#888888",
-    },
-  },
-};
-
+type TabKey = "nowPlaying" | "upcoming" | "topRated" | "popular";
 
 export function HomeScreen() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, isDark, toggleTheme } = useTheme();
   const styles = homeStyles(theme);
+
+  const [activeTab, setActiveTab] = useState<TabKey>("nowPlaying");
 
   const nowPlaying = useFetch(getNowPlaying);
   const popular = useFetch(getPopular);
@@ -72,15 +52,25 @@ export function HomeScreen() {
     return <EmptyState message="Nenhum filme disponível no momento." />;
   }
 
+  const moviesByTab: Record<TabKey, any[]> = {
+    nowPlaying: nowPlaying.data ?? [],
+    upcoming: upcoming.data ?? [],
+    topRated: topRated.data ?? [],
+    popular: popular.data ?? [],
+  };
+
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
       {/* HEADER */}
       <View style={styles.header}>
         <Text style={styles.title}>What do you want to watch?</Text>
 
         <TouchableOpacity onPress={toggleTheme}>
           <Ionicons
-            name={theme.dark ? "sunny-outline" : "moon-outline"}
+            name={isDark ? "sunny-outline" : "moon-outline"}
             size={24}
             color={theme.colors.text}
           />
@@ -101,23 +91,62 @@ export function HomeScreen() {
         />
       </View>
 
-      {/* HERO CAROUSEL */}
+      {/* HERO */}
       <MovieCarousel
         movies={popular.data ?? []}
         showRanking
-        large
+        variant="hero"
       />
 
-      {/* CATEGORY TABS */}
+      {/* TABS */}
       <View style={styles.tabs}>
-        <Text style={[styles.tab, styles.activeTab]}>Now playing</Text>
-        <Text style={styles.tab}>Upcoming</Text>
-        <Text style={styles.tab}>Top rated</Text>
-        <Text style={styles.tab}>Popular</Text>
+        <TouchableOpacity onPress={() => setActiveTab("nowPlaying")}>
+          <Text
+            style={[
+              styles.tab,
+              activeTab === "nowPlaying" && styles.activeTab,
+            ]}
+          >
+            Now playing
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => setActiveTab("upcoming")}>
+          <Text
+            style={[
+              styles.tab,
+              activeTab === "upcoming" && styles.activeTab,
+            ]}
+          >
+            Upcoming
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => setActiveTab("topRated")}>
+          <Text
+            style={[
+              styles.tab,
+              activeTab === "topRated" && styles.activeTab,
+            ]}
+          >
+            Top rated
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => setActiveTab("popular")}>
+          <Text
+            style={[
+              styles.tab,
+              activeTab === "popular" && styles.activeTab,
+            ]}
+          >
+            Popular
+          </Text>
+        </TouchableOpacity>
       </View>
 
-      {/* GRID / LIST */}
-      <MovieCarousel movies={nowPlaying.data ?? []} />
+      {/* LISTA DINÂMICA */}
+      <MovieCarousel movies={moviesByTab[activeTab]} />
     </ScrollView>
   );
 }

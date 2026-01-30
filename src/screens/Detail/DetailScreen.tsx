@@ -22,62 +22,88 @@ export function DetailsScreen() {
   const styles = detailsStyles(theme);
 
   const { isFavorite, toggleFavorite } = useFavorites(movie.id);
-  const [tab, setTab] = useState<"about" | "cast" | "reviews">("about");
+  const [tab, setTab] = useState<"about" | "reviews" | "cast">("about");
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: movie.posterPath }} style={styles.poster} />
+      {/* Banner */}
+      <Image source={{ uri: movie.backdropPath }} style={styles.banner} />
 
-      <View style={styles.content}>
-        <Text style={styles.title}>{movie.title}</Text>
-        <RatingBadge rating={movie.rating} />
+      {/* Conteúdo fixo */}
+      <View style={styles.header}>
+        <Image source={{ uri: movie.posterPath }} style={styles.poster} />
 
-        {/* Tabs */}
-        <View style={styles.tabs}>
-          {["about", "cast", "reviews"].map((item) => (
-            <TouchableOpacity
-              key={item}
-              onPress={() => setTab(item as any)}
-              style={styles.tabButton}
-            >
-              <Text
-                style={[styles.tabText, tab === item && styles.tabTextActive]}
-              >
-                {item.toUpperCase()}
-              </Text>
-            </TouchableOpacity>
-          ))}
+        <View style={styles.headerInfo}>
+          <Text style={styles.title}>{movie.title}</Text>
+
+          <View style={styles.metaRow}>
+            <Text style={styles.metaText}>{movie.year}</Text>
+            <Text style={styles.metaText}>•</Text>
+            <Text style={styles.metaText}>{movie.runtime} min</Text>
+            <Text style={styles.metaText}>•</Text>
+            <Text style={styles.metaText}>{movie.genre}</Text>
+          </View>
+
+          <RatingBadge rating={movie.rating} />
         </View>
+      </View>
 
-        {/* Conteúdo */}
-        {tab === "about" && <AboutTab overview={movie.overview} />}
-        {tab === "cast" && <CastTab movieId={movie.id} />}
-        {tab === "reviews" && <ReviewsTab movieId={movie.id} />}
+      {/* Tabs */}
+      <View style={styles.tabs}>
+        {["about", "reviews", "cast"].map((item) => (
+          <TouchableOpacity
+            key={item}
+            onPress={() => setTab(item as any)}
+            style={styles.tabButton}
+          >
+            <Text
+              style={[
+                styles.tabText,
+                tab === item && styles.tabTextActive,
+              ]}
+            >
+              {item === "about"
+                ? "About Movie"
+                : item === "reviews"
+                ? "Reviews"
+                : "Cast"}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
 
-        {/* Favorito */}
-        <TouchableOpacity
-          onPress={() => toggleFavorite(movie)}
+      {/* Conteúdo das abas (BLINDADO) */}
+      <View style={styles.tabContent}>
+        {tab === "about" && (
+          <AboutTab key="about" overview={movie.overview} />
+        )}
+
+        {tab === "reviews" && (
+          <ReviewsTab key="reviews" movieId={movie.id} />
+        )}
+
+        {tab === "cast" && (
+          <CastTab key="cast" movieId={movie.id} />
+        )}
+      </View>
+
+      {/* Favorito */}
+      <TouchableOpacity
+        onPress={() => toggleFavorite(movie)}
+        style={[
+          styles.favoriteButton,
+          isFavorite && styles.favoriteButtonActive,
+        ]}
+      >
+        <Text
           style={[
-            styles.favoriteButton,
-            {
-              backgroundColor: isFavorite
-                ? theme.colors.primary
-                : theme.colors.surface,
-            },
+            styles.favoriteText,
+            isFavorite && styles.favoriteTextActive,
           ]}
         >
-          <Text
-            style={[
-              styles.favoriteText,
-              {
-                color: isFavorite ? "#FFF" : theme.colors.text,
-              },
-            ]}
-          >
-            {isFavorite ? "Remover da Watchlist" : "Adicionar à Watchlist"}
-          </Text>
-        </TouchableOpacity>
-      </View>
+          {isFavorite ? "Remove from Watchlist" : "Add to Watchlist"}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }

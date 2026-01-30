@@ -17,7 +17,7 @@ export function ReviewsTab({ movieId }: Props) {
     return <EmptyState message="Nenhuma avaliação encontrada." />;
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       {reviews.map((review) => (
         <View
           key={review.id}

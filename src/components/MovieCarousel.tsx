@@ -1,13 +1,15 @@
 import { FlatList, View, Text, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import { MovieCard } from "./MovieCard";
 import { useTheme } from "@/src/context/ThemeContext";
-import { useNavigation } from "@react-navigation/native";
 import { Movie } from "../types/movie";
 
 interface Props {
   title?: string;
   movies: Movie[];
   showRanking?: boolean;
+  variant?: "default" | "hero";
 }
 
 export function MovieCarousel({
@@ -34,9 +36,7 @@ export function MovieCarousel({
         renderItem={({ item, index }) => (
           <View style={styles.itemWrapper}>
             {showRanking && (
-              <Text style={styles.rankingNumber}>
-                {index + 1}
-              </Text>
+              <Text style={styles.rankingNumber}>{index + 1}</Text>
             )}
 
             <MovieCard
@@ -81,9 +81,8 @@ const createStyles = (theme: any) =>
       color: theme.colors.primary,
       opacity: 0.35,
 
-      // 🔥 garante que fique NA FRENTE
+      // garante que fique na frente
       zIndex: 10,
       elevation: 10,
     },
   });
-

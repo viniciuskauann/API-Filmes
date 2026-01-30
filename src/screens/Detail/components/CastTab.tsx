@@ -21,26 +21,31 @@ export function CastTab({ movieId }: Props) {
       data={cast}
       keyExtractor={(item) => item.id.toString()}
       numColumns={2}
+      contentContainerStyle={{ padding: 16 }}
       renderItem={({ item }) => (
-        <View style={{ flex: 1, marginBottom: 16 }}>
-          {item.profile_path && (
-            <Image
-              source={{
-                uri: `${TMDB.IMAGE_URL}${item.profile_path}`,
-              }}
-              style={{
-                width: "100%",
-                height: 180,
-                borderRadius: 8,
-              }}
-            />
-          )}
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            marginBottom: 24,
+          }}
+        >
+          <Image
+            source={{ uri: `${TMDB.IMAGE_URL}${item.profile_path}` }}
+            style={{
+              width: 90,
+              height: 90,
+              borderRadius: 45, // 🔴 círculo perfeito
+              alignSelf: "center",
+              marginBottom: 8,
+            }}
+          />
 
           <Text
             style={{
               color: theme.colors.text,
               fontFamily: theme.fonts.semiBold,
-              marginTop: 6,
+              textAlign: "center",
             }}
           >
             {item.name}
@@ -50,12 +55,14 @@ export function CastTab({ movieId }: Props) {
             style={{
               color: theme.colors.textSecondary,
               fontSize: 12,
+              textAlign: "center",
             }}
           >
             {item.character}
           </Text>
         </View>
       )}
+      showsVerticalScrollIndicator={false}
     />
   );
 }

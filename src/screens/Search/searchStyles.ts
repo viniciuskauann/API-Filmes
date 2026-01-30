@@ -18,6 +18,12 @@ export const searchStyles = (theme: AppTheme) =>
       borderColor: theme.colors.border,
       marginBottom: 16,
     },
+
+     loadingText: {
+      color: theme.colors.textSecondary,
+      marginBottom: 12,
+    },
+    
     emptyText: {
       textAlign: "center",
       marginTop: 32,
