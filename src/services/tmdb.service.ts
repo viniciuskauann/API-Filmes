@@ -6,10 +6,18 @@ function mapMovie(movie: any): Movie {
   return {
     id: movie.id,
     title: movie.title,
-    posterPath: `${process.env.EXPO_PUBLIC_TMDB_IMAGE_URL}${movie.poster_path}`,
-    rating: movie.vote_average,
-    releaseDate: movie.release_date,
-    overview: movie.overview,
+    posterPath: movie.poster_path
+      ? `${process.env.EXPO_PUBLIC_TMDB_IMAGE_URL}${movie.poster_path}`
+      : "",
+    backdropPath: movie.backdrop_path
+      ? `${process.env.EXPO_PUBLIC_TMDB_IMAGE_URL}${movie.backdrop_path}`
+      : "",
+    rating:
+      typeof movie.vote_average === "number"
+        ? movie.vote_average
+        : 0,
+    releaseDate: movie.release_date ?? "",
+    overview: movie.overview ?? "",
   };
 }
 
@@ -79,3 +87,25 @@ export async function searchMovies(query: string): Promise<Movie[]> {
     return [];
   }
 }
+
+
+export async function getMovieDetails(movieId: number) {
+  const { data } = await api.get(`/movie/${movieId}`);
+
+  return {
+    id: data.id,
+    title: data.title,
+    overview: data.overview,
+    rating: data.vote_average ?? 0,
+    releaseDate: data.release_date,
+    runtime: data.runtime,
+    genres: data.genres.map((g: any) => g.name),
+    posterPath: data.poster_path
+      ? `${process.env.EXPO_PUBLIC_TMDB_IMAGE_URL}${data.poster_path}`
+      : null,
+    backdropPath: data.backdrop_path
+      ? `${process.env.EXPO_PUBLIC_TMDB_IMAGE_URL}${data.backdrop_path}`
+      : null,
+  };
+}
+

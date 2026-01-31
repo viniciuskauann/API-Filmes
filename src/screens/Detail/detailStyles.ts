@@ -8,24 +8,56 @@ export const detailsStyles = (theme: AppTheme) =>
       backgroundColor: theme.colors.background,
     },
 
-    banner: {
-      width: "100%",
-      height: 220,
+    backdropWrapper: {
+      position: "relative",
     },
 
-    header: {
+    backdrop: {
+      width: "100%",
+      height: 260,
+    },
+
+    headerActions: {
+      position: "absolute",
+      top: 48,
+      left: 16,
+      right: 16,
       flexDirection: "row",
+      justifyContent: "space-between",
+      zIndex: 10,
+    },
+
+    iconButton: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      backgroundColor: "rgba(0,0,0,0.55)",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
+    ratingWrapper: {
+      position: "absolute",
+      right: 16,
+      bottom: 16,
+    },
+
+    content: {
       padding: 16,
+    },
+
+    headerInfo: {
+      flexDirection: "row",
       marginTop: -60,
     },
 
     poster: {
       width: 110,
-      height: 160,
+      height: 165,
       borderRadius: 12,
     },
 
-    headerInfo: {
+    titleWrapper: {
       flex: 1,
       marginLeft: 16,
       justifyContent: "flex-end",
@@ -35,72 +67,39 @@ export const detailsStyles = (theme: AppTheme) =>
       fontSize: 20,
       fontFamily: theme.fonts.bold,
       color: theme.colors.text,
-      marginBottom: 8,
+      marginBottom: 6,
     },
 
-    metaRow: {
-      flexDirection: "row",
-      alignItems: "center",
-      gap: 6,
-      marginBottom: 10,
-    },
-
-    metaText: {
+    meta: {
+      fontSize: 13,
       color: theme.colors.textSecondary,
-      fontSize: 12,
+      lineHeight: 18,
     },
 
     tabs: {
       flexDirection: "row",
-      justifyContent: "space-around",
-      marginTop: 16,
-      borderBottomWidth: 1,
-      borderBottomColor: theme.colors.border,
+      marginTop: 24,
+      marginBottom: 16,
     },
 
     tabButton: {
-      paddingVertical: 12,
+      marginRight: 20,
+      paddingBottom: 6,
+    },
+
+    tabActive: {
+      borderBottomWidth: 2,
+      borderBottomColor: theme.colors.primary,
     },
 
     tabText: {
-      color: theme.colors.textSecondary,
+      fontSize: 14,
       fontFamily: theme.fonts.medium,
+      color: theme.colors.textSecondary,
     },
 
     tabTextActive: {
       color: theme.colors.primary,
       fontFamily: theme.fonts.bold,
-      borderBottomWidth: 2,
-      borderBottomColor: theme.colors.primary,
-      paddingBottom: 6,
-    },
-
-    tabContent: {
-      flex: 1,
-      padding: 16,
-    },
-
-    favoriteButton: {
-      margin: 16,
-      paddingVertical: 14,
-      borderRadius: 12,
-      alignItems: "center",
-      backgroundColor: theme.colors.surface,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-    },
-
-    favoriteButtonActive: {
-      backgroundColor: theme.colors.primary,
-      borderColor: theme.colors.primary,
-    },
-
-    favoriteText: {
-      fontFamily: theme.fonts.bold,
-      color: theme.colors.text,
-    },
-
-    favoriteTextActive: {
-      color: "#FFF",
     },
   });

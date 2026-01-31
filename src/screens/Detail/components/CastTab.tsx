@@ -14,55 +14,44 @@ export function CastTab({ movieId }: Props) {
   const { cast, loading } = useMovieCast(movieId);
 
   if (loading) return <Loading />;
-  if (!cast.length) return <EmptyState message="Elenco não disponível." />;
+  if (!cast.length)
+    return <EmptyState message="Elenco não disponível." />;
 
   return (
     <FlatList
       data={cast}
       keyExtractor={(item) => item.id.toString()}
-      numColumns={2}
-      contentContainerStyle={{ padding: 16 }}
+      numColumns={3}
+      key="cast-3-cols"
       renderItem={({ item }) => (
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            marginBottom: 24,
-          }}
-        >
-          <Image
-            source={{ uri: `${TMDB.IMAGE_URL}${item.profile_path}` }}
-            style={{
-              width: 90,
-              height: 90,
-              borderRadius: 45, // 🔴 círculo perfeito
-              alignSelf: "center",
-              marginBottom: 8,
-            }}
-          />
+        <View style={{ flex: 1, alignItems: "center", marginBottom: 20 }}>
+          {item.profile_path && (
+            <Image
+              source={{
+                uri: `${TMDB.IMAGE_URL}${item.profile_path}`,
+              }}
+              style={{
+                width: 90,
+                height: 90,
+                borderRadius: 45,
+                marginBottom: 8,
+              }}
+            />
+          )}
 
           <Text
             style={{
               color: theme.colors.text,
+              fontSize: 13,
               fontFamily: theme.fonts.semiBold,
               textAlign: "center",
             }}
+            numberOfLines={2}
           >
             {item.name}
           </Text>
-
-          <Text
-            style={{
-              color: theme.colors.textSecondary,
-              fontSize: 12,
-              textAlign: "center",
-            }}
-          >
-            {item.character}
-          </Text>
         </View>
       )}
-      showsVerticalScrollIndicator={false}
     />
   );
 }

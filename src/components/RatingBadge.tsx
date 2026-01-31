@@ -1,32 +1,28 @@
 import { View, Text } from "react-native";
-import { useTheme } from "../context/ThemeContext";
+import { Ionicons } from "@expo/vector-icons";
 
-
-interface Props {
-  rating: number;
-}
-
-export function RatingBadge({ rating }: Props) {
-  const { theme } = useTheme();
-
+export function RatingBadge({ rating }: { rating: number }) {
   return (
     <View
       style={{
-        backgroundColor: theme.colors.primary,
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-        borderRadius: 6,
-        alignSelf: "flex-start",
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#000000CC",
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderRadius: 20,
       }}
     >
+      <Ionicons name="star" size={14} color="#FFD700" />
       <Text
         style={{
           color: "#FFF",
-          fontFamily: theme.fonts.bold,
-          fontSize: 12,
+          marginLeft: 6,
+          fontWeight: "bold",
+          fontSize: 13,
         }}
       >
-        ⭐ {rating.toFixed(1)}
+        {rating.toFixed(1)}
       </Text>
     </View>
   );

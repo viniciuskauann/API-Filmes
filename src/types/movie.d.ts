@@ -6,7 +6,7 @@ export interface Movie {
   releaseDate: string;
   overview: string;
   backdropPath: string;
-  genre?: string;
+  genres?: { id: number; name: string }[];
   duration?: string;
   year?: string;
   readonly releaseYear?: string;
