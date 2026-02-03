@@ -3,24 +3,37 @@ import { AppTheme } from "../../theme/theme";
 
 export const watchlistStyles = (theme: AppTheme) =>
   StyleSheet.create({
-    /* Lista */
-    list: {
-      padding: 16,
+    container: {
+      flex: 1,
       backgroundColor: theme.colors.background,
     },
 
-    /* Empty State */
+    /* 🔝 HEADER */
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      justifyContent: "space-between",
+    },
+
+    headerTitle: {
+      fontSize: 18,
+      fontFamily: theme.fonts.bold,
+      color: theme.colors.text,
+    },
+
+    /* 📭 EMPTY STATE */
     emptyContainer: {
       flex: 1,
-      backgroundColor: theme.colors.background,
-      justifyContent: "center",
       alignItems: "center",
+      justifyContent: "center",
       paddingHorizontal: 24,
     },
 
     emptyImage: {
-      width: 120,
-      height: 120,
+      width: 140,
+      height: 140,
       marginBottom: 24,
     },
 
@@ -34,9 +47,14 @@ export const watchlistStyles = (theme: AppTheme) =>
 
     emptySubtitle: {
       fontSize: 14,
-      fontFamily: theme.fonts.regular,
       color: theme.colors.textSecondary,
       textAlign: "center",
       lineHeight: 20,
+    },
+
+    /* 🎞️ LISTA */
+    list: {
+      paddingHorizontal: 16,
+      paddingBottom: 24,
     },
   });

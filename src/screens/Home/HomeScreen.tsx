@@ -4,9 +4,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import { homeStyles } from "./homeStyles";
 import { useFetch } from "../../hooks/useFetch";
@@ -24,6 +24,7 @@ import { Loading } from "../../components/Loading";
 type TabKey = "nowPlaying" | "upcoming" | "topRated" | "popular";
 
 export function HomeScreen() {
+  const navigation = useNavigation<any>();
   const { theme, isDark, toggleTheme } = useTheme();
   const styles = homeStyles(theme);
 
@@ -68,28 +69,43 @@ export function HomeScreen() {
       <View style={styles.header}>
         <Text style={styles.title}>What do you want to watch?</Text>
 
-        <TouchableOpacity onPress={toggleTheme}>
-          <Ionicons
-            name={isDark ? "sunny-outline" : "moon-outline"}
-            size={24}
-            color={theme.colors.text}
-          />
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row", gap: 16 }}>
+          {/* WATCHLIST */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Watchlist")}
+          >
+            <Ionicons
+              name="bookmark-outline"
+              size={24}
+              color={theme.colors.text}
+            />
+          </TouchableOpacity>
+
+          {/* THEME */}
+          <TouchableOpacity onPress={toggleTheme}>
+            <Ionicons
+              name={isDark ? "sunny-outline" : "moon-outline"}
+              size={24}
+              color={theme.colors.text}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
-      {/* SEARCH */}
-      <View style={styles.searchContainer}>
-        <TextInput
-          placeholder="Search"
-          placeholderTextColor={theme.colors.placeholder}
-          style={styles.searchInput}
-        />
+      {/* SEARCH — BOTÃO FAKE */}
+      <TouchableOpacity
+        style={styles.searchContainer}
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate("Search")}
+      >
+        <Text style={styles.searchPlaceholder}>Search</Text>
+
         <Ionicons
           name="search-outline"
           size={20}
           color={theme.colors.placeholder}
         />
-      </View>
+      </TouchableOpacity>
 
       {/* HERO */}
       <MovieCarousel
@@ -100,52 +116,29 @@ export function HomeScreen() {
 
       {/* TABS */}
       <View style={styles.tabs}>
-        <TouchableOpacity onPress={() => setActiveTab("nowPlaying")}>
-          <Text
-            style={[
-              styles.tab,
-              activeTab === "nowPlaying" && styles.activeTab,
-            ]}
+        {[
+          ["nowPlaying", "Now playing"],
+          ["upcoming", "Upcoming"],
+          ["topRated", "Top rated"],
+          ["popular", "Popular"],
+        ].map(([key, label]) => (
+          <TouchableOpacity
+            key={key}
+            onPress={() => setActiveTab(key as TabKey)}
           >
-            Now playing
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("upcoming")}>
-          <Text
-            style={[
-              styles.tab,
-              activeTab === "upcoming" && styles.activeTab,
-            ]}
-          >
-            Upcoming
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("topRated")}>
-          <Text
-            style={[
-              styles.tab,
-              activeTab === "topRated" && styles.activeTab,
-            ]}
-          >
-            Top rated
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setActiveTab("popular")}>
-          <Text
-            style={[
-              styles.tab,
-              activeTab === "popular" && styles.activeTab,
-            ]}
-          >
-            Popular
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={[
+                styles.tab,
+                activeTab === key && styles.activeTab,
+              ]}
+            >
+              {label}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
-      {/* LISTA DINÂMICA */}
+      {/* LISTA */}
       <MovieCarousel movies={moviesByTab[activeTab]} />
     </ScrollView>
   );

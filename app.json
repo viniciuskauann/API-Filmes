@@ -9,9 +9,9 @@
     "newArchEnabled": true,
 
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/icons/Pipoca.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1E1E1E"
     },
 
     "ios": {

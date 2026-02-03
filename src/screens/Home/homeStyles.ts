@@ -58,4 +58,10 @@ export const homeStyles = (theme: AppTheme) =>
       borderBottomColor: theme.colors.primary,
       paddingBottom: 6,
     },
+
+    searchPlaceholder: {
+  fontSize: 16,
+  color: theme.colors.placeholder,
+},
+
   });

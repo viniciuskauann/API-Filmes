@@ -102,4 +102,25 @@ export const detailsStyles = (theme: AppTheme) =>
       color: theme.colors.primary,
       fontFamily: theme.fonts.bold,
     },
+
+    rateButton: {
+  flexDirection: "row",
+  alignItems: "center",
+  alignSelf: "flex-start",
+  borderWidth: 1,
+  borderColor: "rgba(255, 215, 0, 0.3)",
+  marginTop: 10,
+  paddingHorizontal: 14,
+  paddingVertical: 6,
+  borderRadius: 20,
+  backgroundColor: "rgba(255, 215, 0, 0.12)", // dourado suave
+},
+
+rateText: {
+  marginLeft: 6,
+  fontSize: 13,
+  fontFamily: theme.fonts.semiBold,
+  color: theme.colors.primary, // dourado do app
+},
+
   });

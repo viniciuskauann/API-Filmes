@@ -4,7 +4,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  FlatList,
 } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,6 +17,7 @@ import { AboutTab } from "./components/AboutTab";
 import { CastTab } from "./components/CastTab";
 import { ReviewsTab } from "./components/ReviewsTab";
 import { RatingBadge } from "../../components/RatingBadge";
+import { RateMovieScreen } from "../RateMovie/RateMovieScreen";
 
 type Params = {
   Details: { movie: Movie };
@@ -36,6 +36,8 @@ export function DetailsScreen() {
   const { isFavorite, toggleFavorite } = useFavorites(movie.id);
   const [activeTab, setActiveTab] =
     useState<(typeof TABS)[number]>("about");
+
+  const [showRateModal, setShowRateModal] = useState(false);
 
   const year = movie.releaseDate
     ? movie.releaseDate.split("-")[0]
@@ -81,7 +83,7 @@ export function DetailsScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* RATING */}
+        {/* RATING BADGE */}
         <View style={styles.ratingWrapper}>
           <RatingBadge rating={movie.rating} />
         </View>
@@ -89,6 +91,7 @@ export function DetailsScreen() {
 
       {/* CONTENT */}
       <View style={styles.content}>
+        {/* HEADER INFO */}
         <View style={styles.headerInfo}>
           <Image
             source={{ uri: movie.posterPath }}
@@ -103,6 +106,19 @@ export function DetailsScreen() {
             </Text>
 
             <Text style={styles.meta}>{genres}</Text>
+
+            {/* RATE BUTTON */}
+            <TouchableOpacity
+              style={styles.rateButton}
+              onPress={() => setShowRateModal(true)}
+            >
+              <Ionicons
+                name="star-outline"
+                size={16}
+                color={theme.colors.primary}
+              />
+              <Text style={styles.rateText}>Rate this movie</Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -129,7 +145,7 @@ export function DetailsScreen() {
           ))}
         </View>
 
-        {/* TAB CONTENT (SEM ScrollView pai) */}
+        {/* TAB CONTENT */}
         {activeTab === "about" && (
           <AboutTab overview={movie.overview} />
         )}
@@ -142,6 +158,16 @@ export function DetailsScreen() {
           <ReviewsTab movieId={movie.id} />
         )}
       </View>
+
+      {/* ⭐ RATE MOVIE MODAL */}
+      <RateMovieScreen
+        visible={showRateModal}
+        onClose={() => setShowRateModal(false)}
+        onConfirm={(rating) => {
+          console.log("User rated:", rating);
+          // aqui depois você pode salvar no backend / storage
+        }}
+      />
     </View>
   );
 }
