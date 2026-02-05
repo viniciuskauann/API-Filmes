@@ -7,6 +7,8 @@ import { AuthProvider } from "./src/context/AuthContext";
 import { ThemeProvider } from "./src/context/ThemeContext";
 import { FavoritesProvider } from "./src/context/FavoritesContext";
 import { initDatabase } from "./src/database/sqlite";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "react-native";
 
 // 🔒 impede splash nativo de sumir sozinho
 SplashScreen.preventAutoHideAsync();
@@ -44,11 +46,14 @@ export default function App() {
   return (
     <AuthProvider>
       <ThemeProvider>
+        <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
         <NavigationContainer onReady={onLayoutRootView}>
           <FavoritesProvider>
             <AppRoutes />
+            <StatusBar barStyle="default" />
           </FavoritesProvider>
         </NavigationContainer>
+        </SafeAreaView>
       </ThemeProvider>
     </AuthProvider>
   );

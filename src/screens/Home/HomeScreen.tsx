@@ -21,6 +21,9 @@ import { MovieCarousel } from "../../components/MovieCarousel";
 import { useTheme } from "../../context/ThemeContext";
 import { Loading } from "../../components/Loading";
 
+
+
+
 type TabKey = "nowPlaying" | "upcoming" | "topRated" | "popular";
 
 export function HomeScreen() {
@@ -92,7 +95,7 @@ export function HomeScreen() {
         </View>
       </View>
 
-      {/* SEARCH — BOTÃO FAKE */}
+      {/* SEARCH — BOTÃO DE BUSCA */}
       <TouchableOpacity
         style={styles.searchContainer}
         activeOpacity={0.8}
