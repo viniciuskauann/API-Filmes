@@ -1,61 +1,68 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import { RatingBadge } from "./RatingBadge";
-import { useTheme } from "@/src/context/ThemeContext";
+import {
+  TouchableOpacity,
+  Image,
+  View,
+  Text,
+  StyleSheet,
+} from "react-native";
 import { Movie } from "../types/movie";
+import { useNavigation } from "@react-navigation/native";
 
-interface Props {
+type Props = {
   movie: Movie;
-  onPress: () => void;
-}
+  variant?: "default" | "hero";
+  ranking?: number;
+};
 
-export function MovieCard({ movie, onPress }: Props) {
-  const { theme } = useTheme();
+export function MovieCard({
+  movie,
+  variant = "default",
+  ranking,
+}: Props) {
+  const navigation = useNavigation<any>();
+  const isHero = variant === "hero";
 
   return (
     <TouchableOpacity
-      onPress={onPress}
-      activeOpacity={0.8}
-      style={{
-        width: 140,
-        marginRight: 12,
-      }}
+      activeOpacity={0.85}
+      onPress={() =>
+        navigation.navigate("Details", { movie })
+      }
     >
-      {/* Wrapper RELATIVO */}
-      <View style={{ position: "relative" }}>
-        <Image
-          source={{ uri: movie.posterPath }}
-          style={{
-            width: "100%",
-            height: 200,
-            borderRadius: 12,
-          }}
-        />
+      <Image
+        source={{ uri: movie.posterPath }}
+        style={[
+          styles.poster,
+          isHero && styles.heroPoster,
+        ]}
+      />
 
-        {/* ⭐ RATING — NA FRENTE */}
-        <View
-          style={{
-            position: "absolute",
-            top: 8,
-            right: 8,
-            zIndex: 10,       // iOS
-            elevation: 10,    // Android
-          }}
-        >
-          <RatingBadge rating={movie.rating} />
-        </View>
-      </View>
-
-      <Text
-        numberOfLines={2}
-        style={{
-          marginTop: 8,
-          fontFamily: theme.fonts.semiBold,
-          color: theme.colors.text,
-          fontSize: 14,
-        }}
-      >
-        {movie.title}
-      </Text>
+      {ranking && (
+        <Text style={styles.ranking}>{ranking}</Text>
+      )}
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  poster: {
+    width: 120,
+    height: 180,
+    borderRadius: 14,
+  },
+
+  heroPoster: {
+    width: "100%",
+    height: 260, // ✅ ALTURA CORRETA (ANTES ESTAVA GIGANTE)
+    borderRadius: 20,
+  },
+
+  ranking: {
+    position: "absolute",
+    bottom: -10,
+    left: -4,
+    fontSize: 96,
+    fontWeight: "900",
+    color: "rgba(255,255,255,0.15)",
+  },
+});

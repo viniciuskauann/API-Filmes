@@ -11,4 +11,5 @@ export interface Movie {
   year?: string;
   readonly releaseYear?: string;
   readonly runtime?: number;
+  variant?: "grid" | "list";
 }

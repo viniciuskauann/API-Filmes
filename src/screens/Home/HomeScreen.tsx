@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {
-  ScrollView,
   View,
   Text,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -16,13 +16,13 @@ import {
   getTopRated,
   getUpcoming,
 } from "../../services/tmdb.service";
-import { EmptyState } from "../../components/EmptyState";
+
+import { MovieGrid } from "../../components/MovieGrid";
 import { MovieCarousel } from "../../components/MovieCarousel";
-import { useTheme } from "../../context/ThemeContext";
 import { Loading } from "../../components/Loading";
-
-
-
+import { EmptyState } from "../../components/EmptyState";
+import { useTheme } from "../../context/ThemeContext";
+/* import { MovieGridItem } from "@/src/components/MovieGridItem"; */
 
 type TabKey = "nowPlaying" | "upcoming" | "topRated" | "popular";
 
@@ -47,15 +47,6 @@ export function HomeScreen() {
     return <Loading />;
   }
 
-  if (
-    !nowPlaying.data?.length &&
-    !popular.data?.length &&
-    !topRated.data?.length &&
-    !upcoming.data?.length
-  ) {
-    return <EmptyState message="Nenhum filme disponível no momento." />;
-  }
-
   const moviesByTab: Record<TabKey, any[]> = {
     nowPlaying: nowPlaying.data ?? [],
     upcoming: upcoming.data ?? [],
@@ -63,86 +54,106 @@ export function HomeScreen() {
     popular: popular.data ?? [],
   };
 
+  const movies = moviesByTab[activeTab];
+
+  if (!movies.length) {
+    return <EmptyState message="Nenhum filme encontrado." />;
+  }
+
   return (
-    <ScrollView
-      style={styles.container}
+    <FlatList
+      data={movies}
+      keyExtractor={(item) => item.id.toString()}
+      numColumns={3}
       showsVerticalScrollIndicator={false}
-    >
-      {/* HEADER */}
-      <View style={styles.header}>
-        <Text style={styles.title}>What do you want to watch?</Text>
-
-        <View style={{ flexDirection: "row", gap: 16 }}>
-          {/* WATCHLIST */}
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Watchlist")}
-          >
-            <Ionicons
-              name="bookmark-outline"
-              size={24}
-              color={theme.colors.text}
-            />
-          </TouchableOpacity>
-
-          {/* THEME */}
-          <TouchableOpacity onPress={toggleTheme}>
-            <Ionicons
-              name={isDark ? "sunny-outline" : "moon-outline"}
-              size={24}
-              color={theme.colors.text}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* SEARCH — BOTÃO DE BUSCA */}
-      <TouchableOpacity
-        style={styles.searchContainer}
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate("Search")}
-      >
-        <Text style={styles.searchPlaceholder}>Search</Text>
-
-        <Ionicons
-          name="search-outline"
-          size={20}
-          color={theme.colors.placeholder}
-        />
-      </TouchableOpacity>
-
-      {/* HERO */}
-      <MovieCarousel
-        movies={popular.data ?? []}
-        showRanking
-        variant="hero"
-      />
-
-      {/* TABS */}
-      <View style={styles.tabs}>
-        {[
-          ["nowPlaying", "Now playing"],
-          ["upcoming", "Upcoming"],
-          ["topRated", "Top rated"],
-          ["popular", "Popular"],
-        ].map(([key, label]) => (
-          <TouchableOpacity
-            key={key}
-            onPress={() => setActiveTab(key as TabKey)}
-          >
-            <Text
-              style={[
-                styles.tab,
-                activeTab === key && styles.activeTab,
-              ]}
-            >
-              {label}
+      contentContainerStyle={styles.listContent}
+      columnWrapperStyle={styles.column}
+      renderItem={({ item }) => (
+        <MovieGrid movie={item} />
+      )}
+      ListHeaderComponent={
+        <>
+          {/* HEADER */}
+          <View style={styles.header}>
+            <Text style={styles.title}>
+              What do you want to watch?
             </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
 
-      {/* LISTA */}
-      <MovieCarousel movies={moviesByTab[activeTab]} />
-    </ScrollView>
+            <View style={{ flexDirection: "row", gap: 16 }}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Watchlist")}
+              >
+                <Ionicons
+                  name="bookmark-outline"
+                  size={24}
+                  color={theme.colors.text}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={toggleTheme}>
+                <Ionicons
+                  name={
+                    isDark
+                      ? "sunny-outline"
+                      : "moon-outline"
+                  }
+                  size={24}
+                  color={theme.colors.text}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {/* SEARCH */}
+          <TouchableOpacity
+            style={styles.searchContainer}
+            onPress={() => navigation.navigate("Search")}
+          >
+            <Text style={styles.searchPlaceholder}>
+              Search
+            </Text>
+            <Ionicons
+              name="search-outline"
+              size={20}
+              color={theme.colors.placeholder}
+            />
+          </TouchableOpacity>
+
+          {/* TOP 10 CAROUSEL */}
+          <MovieCarousel
+            movies={popular.data ?? []}
+            showRanking
+            variant="hero"
+          />
+
+          {/* TABS */}
+          <View style={styles.tabs}>
+            {[
+              ["nowPlaying", "Now playing"],
+              ["upcoming", "Upcoming"],
+              ["topRated", "Top rated"],
+              ["popular", "Popular"],
+            ].map(([key, label]) => (
+              <TouchableOpacity
+                key={key}
+                onPress={() =>
+                  setActiveTab(key as TabKey)
+                }
+              >
+                <Text
+                  style={[
+                    styles.tab,
+                    activeTab === key &&
+                      styles.activeTab,
+                  ]}
+                >
+                  {label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </>
+      }
+    />
   );
 }

@@ -1,12 +1,16 @@
+import { AppTheme } from "@/src/theme/theme";
 import { StyleSheet } from "react-native";
-import { AppTheme } from "../../theme/theme";
 
 export const homeStyles = (theme: AppTheme) =>
   StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
+    listContent: {
       paddingHorizontal: 16,
+      paddingBottom: 120,
+      backgroundColor: theme.colors.background,
+    },
+
+    column: {
+      justifyContent: "space-between",
     },
 
     header: {
@@ -34,16 +38,16 @@ export const homeStyles = (theme: AppTheme) =>
       marginBottom: 24,
     },
 
-    searchInput: {
+    searchPlaceholder: {
       flex: 1,
-      color: theme.colors.text,
       fontSize: 16,
+      color: theme.colors.placeholder,
     },
 
     tabs: {
       flexDirection: "row",
       justifyContent: "space-between",
-      marginVertical: 20,
+      marginVertical: 24,
     },
 
     tab: {
@@ -58,10 +62,4 @@ export const homeStyles = (theme: AppTheme) =>
       borderBottomColor: theme.colors.primary,
       paddingBottom: 6,
     },
-
-    searchPlaceholder: {
-  fontSize: 16,
-  color: theme.colors.placeholder,
-},
-
   });
