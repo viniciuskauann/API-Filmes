@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
     left: -4,
     fontSize: 96,
     fontWeight: "900",
-    color: "rgba(255,255,255,0.15)",
+    color: "rgba(8, 186, 245, 0.65)",
   },
 });
