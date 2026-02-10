@@ -7,6 +7,8 @@ import { useTheme } from "../../context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+
+
 export function WatchlistScreen() {
   const { theme } = useTheme();
   const styles = watchlistStyles(theme);

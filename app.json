@@ -9,7 +9,7 @@
     "newArchEnabled": true,
 
     "splash": {
-      "image": "./assets/icons/Pipoca.png",
+      "image": "./assets/icons/pipoca.png",
       "resizeMode": "contain",
       "backgroundColor": "#1E1E1E"
     },

@@ -80,16 +80,6 @@ export function HomeScreen() {
             </Text>
 
             <View style={{ flexDirection: "row", gap: 16 }}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Watchlist")}
-              >
-                <Ionicons
-                  name="bookmark-outline"
-                  size={24}
-                  color={theme.colors.text}
-                />
-              </TouchableOpacity>
-
               <TouchableOpacity onPress={toggleTheme}>
                 <Ionicons
                   name={

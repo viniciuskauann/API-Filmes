@@ -12,22 +12,22 @@ type Props = {
   movie: Movie;
   variant?: "default" | "hero";
   ranking?: number;
+  onPress?: () => void;
 };
 
 export function MovieCard({
   movie,
   variant = "default",
   ranking,
+  onPress,
 }: Props) {
-  const navigation = useNavigation<any>();
   const isHero = variant === "hero";
 
   return (
     <TouchableOpacity
       activeOpacity={0.85}
-      onPress={() =>
-        navigation.navigate("Details", { movie })
-      }
+      onPress={onPress}
+      disabled={!onPress}
     >
       <Image
         source={{ uri: movie.posterPath }}
