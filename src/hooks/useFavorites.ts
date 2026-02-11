@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+/* import { useEffect, useState } from "react";
 
 import { Movie } from "../types/movie";
 import { addFavorite, getFavorites, isFavorite, removeFavorite } from "../database/favorite.repository";
@@ -36,3 +36,4 @@ export function useFavorites(movieId?: number) {
     toggleFavorite,
   };
 }
+ */

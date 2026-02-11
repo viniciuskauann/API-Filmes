@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -68,25 +63,17 @@ export function HomeScreen() {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.listContent}
       columnWrapperStyle={styles.column}
-      renderItem={({ item }) => (
-        <MovieGrid movie={item} />
-      )}
+      renderItem={({ item }) => <MovieGrid movie={item} />}
       ListHeaderComponent={
         <>
           {/* HEADER */}
           <View style={styles.header}>
-            <Text style={styles.title}>
-              What do you want to watch?
-            </Text>
+            <Text style={styles.title}>What do you want to watch?</Text>
 
             <View style={{ flexDirection: "row", gap: 16 }}>
               <TouchableOpacity onPress={toggleTheme}>
                 <Ionicons
-                  name={
-                    isDark
-                      ? "sunny-outline"
-                      : "moon-outline"
-                  }
+                  name={isDark ? "sunny-outline" : "moon-outline"}
                   size={24}
                   color={theme.colors.text}
                 />
@@ -99,9 +86,7 @@ export function HomeScreen() {
             style={styles.searchContainer}
             onPress={() => navigation.navigate("Search")}
           >
-            <Text style={styles.searchPlaceholder}>
-              Search
-            </Text>
+            <Text style={styles.searchPlaceholder}>Search</Text>
             <Ionicons
               name="search-outline"
               size={20}
@@ -126,16 +111,10 @@ export function HomeScreen() {
             ].map(([key, label]) => (
               <TouchableOpacity
                 key={key}
-                onPress={() =>
-                  setActiveTab(key as TabKey)
-                }
+                onPress={() => setActiveTab(key as TabKey)}
               >
                 <Text
-                  style={[
-                    styles.tab,
-                    activeTab === key &&
-                      styles.activeTab,
-                  ]}
+                  style={[styles.tab, activeTab === key && styles.activeTab]}
                 >
                   {label}
                 </Text>

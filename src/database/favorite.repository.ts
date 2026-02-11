@@ -43,9 +43,10 @@ export function getFavorites(): Movie[] {
     id: item.id,
     title: item.title,
     posterPath: item.poster,
+    backdropPath: item.poster,
     rating: item.rating,
     releaseDate: item.releaseDate,
-    overview: "",
+    overview: item.overview || "",
   }));
 }
 
