@@ -1,60 +1,75 @@
 import { StyleSheet } from "react-native";
-import { AppTheme } from "../../theme/theme";
 
-export const watchlistStyles = (theme: AppTheme) =>
+export const watchlistStyles = (theme: any) =>
   StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
     },
-
-    /* 🔝 HEADER */
     header: {
       flexDirection: "row",
       alignItems: "center",
-      paddingHorizontal: 16,
-      paddingVertical: 12,
+      justifyContent: "space-between",
+      paddingHorizontal: 20,
+      paddingVertical: 16,
+    },
+    headerTitle: {
+      fontSize: 20,
+      fontWeight: "700",
+      color: theme.colors.text,
+    },
+    emptyContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      paddingHorizontal: 40,
+    },
+
+    cardContent: {
+      flex: 1,
+      flexDirection: "row",
+      marginLeft: 14,
       justifyContent: "space-between",
     },
 
-    headerTitle: {
-      fontSize: 18,
+    ratingRow: {
+      marginVertical: 6,
+    },
+
+     metaRow: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+
+    metaText: {
+      marginLeft: 6,
+      fontSize: 13,
+      color: theme.colors.textSecondary,
+    },
+
+
+    movieTitle: {
+      fontSize: 16,
       fontFamily: theme.fonts.bold,
       color: theme.colors.text,
     },
 
-    /* 📭 EMPTY STATE */
-    emptyContainer: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-      paddingHorizontal: 24,
-    },
-
     emptyImage: {
-      width: 140,
-      height: 140,
-      marginBottom: 24,
+      width: 150,
+      height: 150,
+      marginBottom: 20,
     },
-
     emptyTitle: {
       fontSize: 18,
-      fontFamily: theme.fonts.bold,
+      fontWeight: "700",
       color: theme.colors.text,
       marginBottom: 8,
       textAlign: "center",
     },
-
     emptySubtitle: {
       fontSize: 14,
-      color: theme.colors.textSecondary,
+      color: theme.colors.textSecondary || "#9CA3AF",
       textAlign: "center",
       lineHeight: 20,
-    },
-
-    /* 🎞️ LISTA */
-    list: {
-      paddingHorizontal: 16,
-      paddingBottom: 24,
     },
   });

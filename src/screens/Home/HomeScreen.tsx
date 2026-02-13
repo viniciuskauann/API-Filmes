@@ -68,7 +68,7 @@ export function HomeScreen() {
         <>
           {/* HEADER */}
           <View style={styles.header}>
-            <Text style={styles.title}>What do you want to watch?</Text>
+            <Text style={styles.title}>O que você quer assistir?</Text>
 
             <View style={{ flexDirection: "row", gap: 16 }}>
               <TouchableOpacity onPress={toggleTheme}>
@@ -84,7 +84,7 @@ export function HomeScreen() {
           {/* SEARCH */}
           <TouchableOpacity
             style={styles.searchContainer}
-            onPress={() => navigation.navigate("Search")}
+            onPress={() => navigation.navigate("SearchStack", { screen: "Search" })}
           >
             <Text style={styles.searchPlaceholder}>Search</Text>
             <Ionicons
