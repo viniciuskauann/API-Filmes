@@ -63,7 +63,7 @@ export function DetailsScreen() {
 
         {/* RATING BADGE */}
         <View style={styles.ratingWrapper}>
-          <RatingBadge rating={movie.rating} />
+          <RatingBadge rating={movie.rating} style={{backgroundColor:"#0b0b0b"}} />
         </View>
       </View>
 

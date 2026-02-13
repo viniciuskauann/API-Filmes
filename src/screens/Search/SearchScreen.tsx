@@ -124,7 +124,7 @@ export function SearchScreen() {
                   size={14}
                   color={theme.colors.textSecondary}
                 />
-                <Text style={styles.metaText}>Action</Text>
+                <Text style={styles.metaText}>Ação</Text>
               </View>
 
               <View style={styles.metaRow}>
@@ -144,7 +144,7 @@ export function SearchScreen() {
                   size={14}
                   color={theme.colors.textSecondary}
                 />
-                <Text style={styles.metaText}>139 minutes</Text>
+                <Text style={styles.metaText}>139 minutos</Text>
               </View>
             </View>
           </TouchableOpacity>

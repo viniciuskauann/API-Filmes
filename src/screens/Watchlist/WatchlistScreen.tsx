@@ -36,10 +36,10 @@ export function WatchlistScreen() {
             resizeMode="contain"
           />
 
-          <Text style={styles.emptyTitle}>There Is No Movie Yet!</Text>
+          <Text style={styles.emptyTitle}>Ainda não há filme!</Text>
           <Text style={styles.emptySubtitle}>
-            Find your movie by Type title,{"\n"}
-            categories, years, etc
+            Encontre seu filme digitando o título.{"\n"}
+            categoria, ano, etc
           </Text>
         </View>
       ) : (
@@ -75,7 +75,7 @@ export function WatchlistScreen() {
                     size={14}
                     color={theme.colors.textSecondary}
                   />
-                  <Text style={styles.metaText}>Action</Text>
+                  <Text style={styles.metaText}>Ação</Text>
                 </View>
 
                 <View style={styles.metaRow}>
@@ -95,7 +95,7 @@ export function WatchlistScreen() {
                     size={14}
                     color={theme.colors.textSecondary}
                   />
-                  <Text style={styles.metaText}>139 minutes</Text>
+                  <Text style={styles.metaText}>139 minutos</Text>
                 </View>
               </View>
             </View>

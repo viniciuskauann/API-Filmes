@@ -26,6 +26,7 @@ export const watchlistStyles = (theme: any) =>
     },
 
     cardContent: {
+      margin: 12,
       flex: 1,
       flexDirection: "row",
       marginLeft: 14,

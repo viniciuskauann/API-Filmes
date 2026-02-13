@@ -4,19 +4,19 @@ import { Ionicons } from "@expo/vector-icons";
 interface RatingBadgeProps {
   rating: number;
   small?: boolean; // 👈 agora existe
+  style?: object;
 }
 
-export function RatingBadge({ rating, small = false }: RatingBadgeProps) {
+export function RatingBadge({ rating, small = false, style }: RatingBadgeProps) {
   return (
     <View
-      style={{
+      style={[{
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: "#000000CC",
         paddingHorizontal: small ? 8 : 10,
         paddingVertical: small ? 4 : 6,
         borderRadius: 20,
-      }}
+      }, style]}
     >
       <Ionicons
         name="star"
