@@ -87,11 +87,11 @@ export function SearchScreen() {
             style={styles.emptyImage}
           />
           <Text style={styles.emptyTitle}>
-            We Are Sorry, We Can Not Find The Movie :(
+            Pedimos desculpas, mas não conseguimos encontrar o filme. :(
           </Text>
           <Text style={styles.emptySubtitle}>
-            Find your movie by Type title,
-            {"\n"}categories, years, etc
+            Encontre seu filme digitando o título.
+            {"\n"}categoria, ano, etc
           </Text>
         </View>
       )}
